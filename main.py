@@ -1,14 +1,12 @@
-from genetic_algorithm import toolbox, generate_symmetric_distance_matrix, evalTSP
+from genetic_algorithm import setup_toolbox, generate_symmetric_distance_matrix
 from deap import algorithms, tools
-import random
 import numpy as np
+import random
 
-def main():
-    num_cities = 20
+def main(num_cities):
     distance_matrix = generate_symmetric_distance_matrix(num_cities)
+    toolbox = setup_toolbox(num_cities, distance_matrix)
 
-    toolbox.register("evaluate", evalTSP, distance_matrix=distance_matrix)
-    
     random.seed(42)
     pop = toolbox.population(n=100)
     hof = tools.HallOfFame(1)
@@ -23,6 +21,7 @@ def main():
     return pop, log, hof
 
 if __name__ == "__main__":
-    final_pop, logbook, best = main()
+    num_cities = 10
+    final_pop, logbook, best = main(num_cities)
     print("Best individual is:", best[0])
     print("Best fitness is:", best[0].fitness.values[0])
