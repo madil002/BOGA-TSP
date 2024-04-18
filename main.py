@@ -3,12 +3,12 @@ from deap import algorithms, tools
 import numpy as np
 import random
 
-def main(num_cities):
+def main(num_cities, cxpb, mutpb, pop_size):
     distance_matrix = generate_symmetric_distance_matrix(num_cities)
-    toolbox = setup_toolbox(num_cities, distance_matrix)
+    toolbox = setup_toolbox(num_cities, distance_matrix, cxpb, mutpb, pop_size)
 
     random.seed(42)
-    pop = toolbox.population(n=100)
+    pop = toolbox.population(n=pop_size)
     hof = tools.HallOfFame(1)
 
     stats = tools.Statistics(lambda ind: ind.fitness.values)
@@ -21,7 +21,10 @@ def main(num_cities):
     return pop, log, hof
 
 if __name__ == "__main__":
-    num_cities = 10
-    final_pop, logbook, best = main(num_cities)
+    num_cities = 20
+    cxpb = 0.946994855
+    mutpb = 0.0273643824
+    pop_size = 186
+    final_pop, logbook, best = main(num_cities, cxpb, mutpb, pop_size)
     print("Best individual is:", best[0])
     print("Best fitness is:", best[0].fitness.values[0])
