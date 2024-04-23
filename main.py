@@ -1,10 +1,11 @@
 from genetic_algorithm import setup_toolbox, generate_symmetric_distance_matrix
+from tsp_generator import generate_tsp
 from deap import algorithms, tools
 import numpy as np
 import random
 
-def main(num_cities, cxpb, mutpb, pop_size):
-    distance_matrix = generate_symmetric_distance_matrix(num_cities)
+def main(distance_matrix, cxpb, mutpb, pop_size):
+    num_cities = len(distance_matrix)
     toolbox = setup_toolbox(num_cities, distance_matrix, cxpb, mutpb, pop_size)
 
     random.seed(42)
@@ -21,10 +22,10 @@ def main(num_cities, cxpb, mutpb, pop_size):
     return pop, log, hof
 
 if __name__ == "__main__":
-    num_cities = 20
-    cxpb = 0.946994855
-    mutpb = 0.0273643824
-    pop_size = 186
-    final_pop, logbook, best = main(num_cities, cxpb, mutpb, pop_size)
+    distance_matrix = generate_tsp("TSPs/wi29.tsp")
+    cxpb = 0.894698890
+    mutpb = 0.0654135104
+    pop_size = 150
+    final_pop, logbook, best = main(distance_matrix, cxpb, mutpb, pop_size)
     print("Best individual is:", best[0])
     print("Best fitness is:", best[0].fitness.values[0])
