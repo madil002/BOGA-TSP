@@ -18,7 +18,7 @@ def generate_tsp(file_path):
                 parts = line.split()
                 if len(parts) == 3:
                     node, x, y = parts
-                    coordinates.append([int(node), float(x), float(y)])
+                    coordinates.append((float(x), float(y)))
 
 
     num_cities = len(coordinates)
@@ -27,8 +27,13 @@ def generate_tsp(file_path):
     for i in range(num_cities):
         for j in range(num_cities):
             if i != j:
-                distance = np.sqrt((coordinates[i][0] - coordinates[j][0]) ** 2 + (coordinates[i][1] - coordinates[j][1]) ** 2)
+                dx = coordinates[i][0] - coordinates[j][0]
+                dy = coordinates[i][1] - coordinates[j][1]
+                distance = np.sqrt(dx**2 + dy**2)
                 distance_matrix[i][j] = distance
                 distance_matrix[j][i] = distance
+
     # print(distance_matrix)
     return distance_matrix
+
+generate_tsp("TSPs/wi29.tsp")
