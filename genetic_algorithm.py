@@ -14,7 +14,7 @@ def generate_symmetric_distance_matrix(num_cities):
     print(matrix)
     return(matrix)
 
-def setup_toolbox(num_cities, distance_matrix):
+def setup_toolbox(num_cities, distance_matrix, cxpb, mutpb, pop_size):
     toolbox = base.Toolbox()
 
     # Attribute generator for creating a route
