@@ -30,8 +30,8 @@ def generate_tsp(file_path):
                 dx = coordinates[i][0] - coordinates[j][0]
                 dy = coordinates[i][1] - coordinates[j][1]
                 distance = np.sqrt(dx**2 + dy**2)
-                distance_matrix[i][j] = distance
-                distance_matrix[j][i] = distance
+                distance_matrix[i][j] = int(round(distance))
+                distance_matrix[j][i] = int(round(distance))
 
     # print(distance_matrix)
     return distance_matrix
