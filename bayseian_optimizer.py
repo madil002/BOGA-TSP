@@ -18,7 +18,7 @@ def run_ga(distance_matrix, cxpb, mutpb, pop_size):
     stats.register("max", np.max)
 
     print(f"Running GA with cxbp={cxpb}, mutpb={mutpb}, pop_size={pop_size}")
-    pop, log = algorithms.eaSimple(pop, toolbox, cxpb=cxpb, mutpb=mutpb, ngen=100, stats=stats, halloffame=hof, verbose=True)
+    pop, log = algorithms.eaSimple(pop, toolbox, cxpb=cxpb, mutpb=mutpb, ngen=100, stats=stats, halloffame=hof, verbose=False)
 
     # Best individual
     best_fitness = hof.items[0].fitness.values[0]
@@ -41,7 +41,10 @@ def optimize_hyperparameters(file_path):
     ]
 
     for bound in bounds:
-        print(f"  - {bound['name']} between {bound['domain'][0]} and {bound['domain'][1]}")
+        if isinstance(bound['domain'], range):
+            print(f"  - {bound['name']} between {min(bound['domain'])} and {max(bound['domain'])}")
+        else:
+            print(f"  - {bound['name']} between {bound['domain'][0]} and {bound['domain'][1]}")
 
     obj_func = lambda params: objective_function(params, distance_matrix)
 
